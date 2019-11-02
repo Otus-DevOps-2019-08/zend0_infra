@@ -10,10 +10,10 @@ ssh -o ProxyCommand='ssh -l appuser <bastion_ip> nc <vm_ip>>' -l appuser <vm_ip>
 
 ```shell script
 Host someinternalhost
-  Hostname        <vm_ip>
-  Port            22
-  User            appuser
-  IdentityFile    ~/.ssh/id_ed25519
+  Hostname     <vm_ip>
+  Port         22
+  User         appuser
+  IdentityFile ~/.ssh/id_ed25519
   ProxyCommand ssh <bastion_ip> nc %h %p
 ```
 
