@@ -75,3 +75,16 @@ _Данные для проверки задания_
 testapp_IP = 23.251.131.126
 testapp_port = 9292
 ```
+# Работа с Packer
+Создание Application Default Credentials (АDC):
+```shell script
+gcloud auth application-default login
+```
+Валидация конфига для Packer (с внешними переменными)
+```shell script
+packer validate -var-file=variables.json ubuntu16.json
+```
+Запуск сборки образа
+```shell script
+packer build -var-file=variables.json ubuntu16.json
+```
