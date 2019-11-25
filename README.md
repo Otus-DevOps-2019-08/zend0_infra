@@ -88,3 +88,44 @@ packer validate -var-file=variables.json ubuntu16.json
 ```shell script
 packer build -var-file=variables.json ubuntu16.json
 ```
+# Работа с Terraform
+Для Terraform имя файла не имеет значения, он загружает все файлы в текущей директории с расширением `*.tf`  
+
+Все файлы, которые соответствуют `terraform.tfvars` или `*.auto.tfvars` в текущем директории, 
+автоматически загружаются для подстановки переменных.  
+Как вариант, переменные можно передавать в командной строке:
+```shell script
+terraform apply \
+  -var 'region=us-east-2'
+```
+Инициализация терраформа, скачивание необходимых провайдеров и т.п.
+```shell script
+terraform init
+```
+Вывод планируемых изменений
+```shell script
+terraform plan
+```
+Применение изменений
+```shell script
+terraform apply
+```
+вывод текущего состояния инфраструктуры (читает `*.tfstate`)
+```shell script
+terraform show
+```
+Вывод всех output(ов)
+```shell script
+terraform output
+```
+Если внесли изменения в output(ы) то изменения применяем "на лету"
+```shell script
+terraform refresh
+```
+Для проверки синтаксиса и корректного форматирования всех файлов, можно воспользоваться
+```shell script
+terraform fmt
+```
+
+При работе с Terraform надо учитывать что если какой то элемент инфраструктуры не описан в Terraform, то при `apply`, 
+`destroy` его можно потерять.
