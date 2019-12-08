@@ -129,3 +129,10 @@ terraform fmt
 
 При работе с Terraform надо учитывать что если какой то элемент инфраструктуры не описан в Terraform, то при `apply`, 
 `destroy` его можно потерять.
+
+# Работа с Terraform (продолжение)
+### Импортируем существующую инфраструктуру в Terraform
+Указываем terraform(у) импортировать в state-файл описанный элемент инфтраструктуры, который был создал мне terraform
+```bash
+terraform import google_compute_firewall.firewall_ssh default-allow-ssh
+```
