@@ -2,6 +2,11 @@ terraform {
   //  Версия terraform
   //  required_version = "0.12.8"
   required_version = ">= 0.12"
+
+  backend "gcs" {
+    bucket  = "tf-prod-otus"
+//    prefix  = "terraform/state"
+  }
 }
 
 provider "google" {
@@ -31,6 +36,22 @@ module "db" {
   zone            = var.zone
   db_disk_image   = var.db_disk_image
 }
+
+data "terraform_remote_state" "prod" {
+  backend = "gcs"
+  config = {
+    bucket  = "tf-prod-otus"
+//    prefix  = "prod"
+  }
+}
+
+//resource "template_file" "bar" {
+//  template = greeting
+//
+//  vars {
+//    greeting = data.terraform_remote_state.foo.greeting
+//  }
+//}
 
 //resource "google_compute_project_metadata" "default" {
 //  metadata = {

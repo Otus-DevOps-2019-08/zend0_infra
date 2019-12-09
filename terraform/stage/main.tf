@@ -32,6 +32,9 @@ module "db" {
   db_disk_image   = var.db_disk_image
 }
 
+
+
+
 //resource "google_compute_project_metadata" "default" {
 //  metadata = {
 //    ssh-keys = "appuser1:${file(var.public_key_path)}"
