@@ -19,7 +19,7 @@ provider "google" {
 
 module "vpc" {
   source        = "../modules/vpc"
-  source_ranges = ["79.164.18.97/32"]
+  source_ranges = ["79.164.18.97/20"]
 }
 
 module "app" {
