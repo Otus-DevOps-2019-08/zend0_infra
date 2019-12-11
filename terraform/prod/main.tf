@@ -4,8 +4,7 @@ terraform {
   required_version = ">= 0.12"
 
   backend "gcs" {
-    bucket  = "tf-prod-otus"
-//    prefix  = "terraform/state"
+    bucket = "tf-prod-otus"
   }
 }
 
@@ -40,79 +39,6 @@ module "db" {
 data "terraform_remote_state" "prod" {
   backend = "gcs"
   config = {
-    bucket  = "tf-prod-otus"
-//    prefix  = "prod"
+    bucket = "tf-prod-otus"
   }
 }
-
-//resource "template_file" "bar" {
-//  template = greeting
-//
-//  vars {
-//    greeting = data.terraform_remote_state.foo.greeting
-//  }
-//}
-
-//resource "google_compute_project_metadata" "default" {
-//  metadata = {
-//    ssh-keys = "appuser1:${file(var.public_key_path)}"
-//  }
-//}
-
-//resource "google_compute_project_metadata" "default" {
-//  //  Добавляем ключи для пользователя(пользователей)
-//  metadata = {
-//    ssh-keys = join("", [for user, key in var.ssh_keys : "${user}:${file(key)}"])
-//  }
-//}
-
-//resource "google_compute_instance" "app" {
-//  //  count        = 2
-//  //  name         = "reddit-app-${count.index}"
-//  name         = "reddit-app"
-//  machine_type = "g1-small"
-//  zone         = var.zone
-//  tags         = ["reddit-app"]
-//
-//  metadata = {
-//    //  Путь до публичного ключа
-//    ssh-keys = "appuser:${file(var.public_key_path)}"
-//  }
-//
-//  //  определение загрузочного диска
-//  boot_disk {
-//    initialize_params {
-//      image = var.disk_image
-//    }
-//  }
-//
-//  network_interface {
-//    network = "default"
-//    access_config {
-//      nat_ip = google_compute_address.app_ip.address
-//    }
-//  }
-//
-//  connection {
-//    type  = "ssh"
-//    host  = self.network_interface[0].access_config[0].nat_ip
-//    user  = "appuser"
-//    agent = false
-//    //  путь до приватного ключа
-//    private_key = file(var.private_key_path)
-//  }
-//
-//  provisioner "file" {
-//    source      = "files/puma.service"
-//    destination = "/tmp/puma.service"
-//  }
-//
-//  provisioner "remote-exec" {
-//    script = "files/deploy.sh"
-//  }
-//}
-//
-////  Резервируем внешний IP
-//resource "google_compute_address" "app_ip" {
-//  name = "reddit-app-ip"
-//}
