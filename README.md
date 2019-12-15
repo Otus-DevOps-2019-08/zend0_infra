@@ -129,3 +129,15 @@ terraform fmt
 
 При работе с Terraform надо учитывать что если какой то элемент инфраструктуры не описан в Terraform, то при `apply`, 
 `destroy` его можно потерять.
+
+# Работа с Terraform (продолжение)
+### Импортируем существующую инфраструктуру в Terraform
+Указываем terraform(у) импортировать в state-файл описанный элемент инфраструктуры, который был создал вне terraform
+```bash
+terraform import google_compute_firewall.firewall_ssh default-allow-ssh
+```
+Для загрузки моулей, необходимо выполнить в дирректории terraform выполнить
+```bash
+terraform get
+```
+В ходе выполнения дополнительного задания (хранение state в S3 GCP) подтвердилось что его может использовать только один процесс terraform
