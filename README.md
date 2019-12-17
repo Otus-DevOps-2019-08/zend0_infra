@@ -141,3 +141,17 @@ terraform import google_compute_firewall.firewall_ssh default-allow-ssh
 terraform get
 ```
 В ходе выполнения дополнительного задания (хранение state в S3 GCP) подтвердилось что его может использовать только один процесс terraform
+
+# Ansible
+Проверка доступности хоста
+```bash
+ansible all -i inventory.yml -m ping
+```
+Получение статуса сервиса используя модули
+```bash
+ansible all -i inventory.yml -m systemd -a name=mongod
+```
+### Динамическое инвентори в Ansible
+[Ссылка на описание что же это такое](https://medium.com/@Nklya/%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5-%D0%B8%D0%BD%D0%B2%D0%B5%D0%BD%D1%82%D0%BE%D1%80%D0%B8-%D0%B2-ansible-9ee880d540d6).  
+Для того что бы Ansible начал работать с динамическим инвентори, надо указать ему "инвентори" скрипт, который поддерживает ключи `--list` и `--host` и возвращает корректный формат ответа в JSON.  
+Необходимо обратить внимание, что формат ответа сконвертированного YAML->JSON от `inventory.py --list` отличается.
