@@ -2,7 +2,7 @@
   "app": {
     "hosts": {
       "appserver": {
-        "ansible_host": "35.195.101.26",
+        "ansible_host": "34.76.71.142",
         "ansible_python_interpreter": "auto"
       }
     }
@@ -10,7 +10,7 @@
   "db": {
     "hosts": {
       "dbserver": {
-        "ansible_host": "35.241.188.178",
+        "ansible_host": "34.76.192.161",
         "ansible_python_interpreter": "auto"
       }
     }
