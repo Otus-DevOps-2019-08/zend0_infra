@@ -9,3 +9,12 @@ variables.json
 *.retry
 jdauphant.nginx
 vault.key
+
+# Vagrant & molecule
+.vagrant/
+*.log
+*.pyc
+.venv
+.molecule
+.cache
+.pytest_cache

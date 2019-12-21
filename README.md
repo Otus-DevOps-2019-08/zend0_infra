@@ -208,3 +208,68 @@ ansible-vault edit <file>
 ```bash
 ansible-vault decrypt <file>
 ```
+# Vagrant
+### Vagrant + libvirt
+Для работы Vagrant c libvirt необходимо установить плагин *vagrant-libvirt*  
+Для корректного запуска виртуальных машин с приватными сетями, надо что бы была сеть 
+*vagrant-libvirt* (с адресацией 192.168.121.0/24).  
+  
+### Работа с Vagrant
+Описание ВМ хранится в файле *Vagrantfile*  
+Запуск описанных вм
+```shell script
+vagrant up
+```
+debug
+```shell script
+vagrant up --debug
+```
+Удаление описанных вм
+```shell script
+vagrant destroy
+```
+Список доступных локальных образов
+```shell script
+vagrant box list
+```
+Подключение в ВМ
+```shell script
+vagrant ssh <vm_name>
+```
+
+### Провижининг через Ansible
+Применение конфигурации
+```shell script
+vagrant provision <vm_name>
+```
+Если что, после провижининга можно посмотреть на сгененированный inventory:  
+`cat .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`
+
+Переназначение переменных происходит через `extra_vars`
+
+### Тестирование ролей в molecule
+Создание роли (как `ansible-galaxy init <role_name>`) только со сценариями для molecule
+```shell script
+molecule init role -r <role_name>
+```
+или генерирование сценариев дл уже существующей роли
+```shell script
+molecule init scenario --scenario-name default --role-name <role_name> --driver-name vagrant
+```
+Создание VM для проверки роли / Удаление VM
+```shell script
+molecule create / destroy
+```
+Подключаемся к тестовой машине, `molecule list` - для определения <instance_name>
+```shell script
+molecule login -h <instance_name>
+```
+в ходе инициализации окружения для молекулы, создаётся плейбук `db/molecule/default/playbook.yml`
+применение плейбука
+```shell script
+molecule converge
+```
+Запуск тестов
+```shell script
+molecule verify
+```
