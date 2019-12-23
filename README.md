@@ -159,3 +159,52 @@ ansible all -i inventory.yml -m systemd -a name=mongod
 ### Деплой и управление конфигурацией с Ansible
 Разбиваем плейбук на несколько плеев (play).  
 Так же сделал интеграцию Packer с Ansible.
+
+### Ansible, роли и окружения
+Ansible Galaxy - централизованное хранилище плейбуков.  
+
+Справка по команде:
+```bash
+ansible-galaxy -h
+```
+Создание "заготовки" для своей роли
+```bash
+ansible-galaxy init <role_name>
+```
+Хорошей практикой при использовании ролей с `galaxy` считается их описывание в `requirements.yml`
+```yaml
+- src: jdauphant.nginx
+  version: v2.21.1
+```
+и устанавливаем роль:
+```bash
+ansible-galaxy install -r environments/stage/requirements.yml
+```
+коммитить в свой репозиторий такие роли не стоит, лучше их хранить отдельно, для простоты в конфиге стоит указать путь для таких ролей в `ansible.cfg`
+```ini
+[defaults]
+...
+roles_path = ./.imported_roles:./roles
+```
+
+Для работы с Ansible Vault необходимо создать файл с секретом, как вариант в  
+`~/.ansible/otus_vault.key`
+Для того что бы Ansible его сам подключал укажем путь к файлу в ancible.cfg
+```ini
+[defaults]
+...
+vault_password_file = ~/.ansible/otus_vault.key
+```
+
+Шифруем файл
+```bash
+ansible-vault encrypt environments/prod/credentials.yml
+```
+Правим файл
+```bash
+ansible-vault edit <file>
+```
+Расшифровываем файл
+```bash
+ansible-vault decrypt <file>
+```
